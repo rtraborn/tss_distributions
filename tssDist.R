@@ -16,6 +16,7 @@ tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=FALSE) {
 	my.skew <- c(rep(NA,nrow(tsr.filt)))
 	my.kurtosis <- c(rep(NA,nrow(tsr.filt)))
 	tsr.out <- cbind(tsr.filt, my.var, my.skew, my.kurtosis, ks.results, sig.results)
+	tsr.out <- cbind(tsr.filt, ks.results, sig.results)
 	for (i in 1:nrow(as.data.frame(tsrGR.filt))) {
 		this.selection <- subsetByOverlaps(tssGR, tsrGR.filt[i,])
 		this.df <- as.data.frame(this.selection)
@@ -36,7 +37,7 @@ tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=FALSE) {
 		}
 	if (write.file==TRUE) {
 	   write.table(tsr.out, file="tssDist_out.txt", sep="\t", quote=FALSE)
-	   }
+		}
 	return(tsr.out)
 }	
 		
