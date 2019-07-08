@@ -1,4 +1,4 @@
-tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=FALSE) { 
+tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=TRUE, fileOut="tssDist_out_0708.txt") { 
 	source("tssVec.R")
 	library(GenomicRanges)
 	library(e1071)
@@ -16,11 +16,15 @@ tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=FALSE) {
 	my.skew <- c(rep(NA,nrow(tsr.filt)))
 	my.kurtosis <- c(rep(NA,nrow(tsr.filt)))
 	tsr.out <- cbind(tsr.filt, my.var, my.skew, my.kurtosis, ks.results, sig.results)
-	tsr.out <- cbind(tsr.filt, ks.results, sig.results)
+	my.seq <- seq(1,length(tsr[,1])
+	my.names <- paste("tsr", my.seq)
+	tags.list <- vector("list", length(my.names))
+	rownames(tsr.out) <- my.names
 	for (i in 1:nrow(as.data.frame(tsrGR.filt))) {
 		this.selection <- subsetByOverlaps(tssGR, tsrGR.filt[i,])
 		this.df <- as.data.frame(this.selection)
 		tss.dist.sample <- tssVec(this.df)
+		tags.list[[i]] <- tss.dist.sample
 		r.dist <- round(rnorm(length(tss.dist.sample), mean=median(tss.dist.sample)))
 		ks.out <- ks.test(tss.dist.sample, r.dist)
 		ks.pval <- ks.out$p.value
@@ -38,6 +42,7 @@ tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=FALSE) {
 	if (write.file==TRUE) {
 	   write.table(tsr.out, file="tssDist_out.txt", sep="\t", quote=FALSE)
 		}
+	save(tags.list, file="tssTagsList.RData")
 	return(tsr.out)
 }	
 		
