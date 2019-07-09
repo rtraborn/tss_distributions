@@ -40,10 +40,9 @@ tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=TRUE, fileOut="tss
 		tsr.out[i, 16] <- sig.result
 		}
 	if (write.file==TRUE) {
-	   write.table(tsr.out, file="tssDist_out.txt", sep="\t", quote=FALSE)
+	   write.table(tsr.out, file="tssDist_out.txt", sep="\t", quote=FALSE, row.names=TRUE, col.names=TRUE)
 		}
 	save(tags.list, file="tssTagsList.RData")
-	return(tsr.out)
 }	
 		
 		
