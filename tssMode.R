@@ -27,7 +27,7 @@ tssMode <- function(tssFile, tsrFile,  minTAGs=10, write.file=FALSE) {
 	if (write.file==TRUE) {
 	   write.table(tsr.filt, file="tssMode_out.txt", sep="\t", quote=FALSE)
 		}
-	return(tsr.out)
+	return(tsr.filt)
 }	
 		
 		
