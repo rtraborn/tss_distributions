@@ -16,8 +16,10 @@ tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=TRUE, fileOut="tss
 	my.skew <- c(rep(NA,nrow(tsr.filt)))
 	my.kurtosis <- c(rep(NA,nrow(tsr.filt)))
 	tsr.out <- cbind(tsr.filt, my.var, my.skew, my.kurtosis, ks.results, sig.results)
-	my.seq <- seq(1,length(tsr[,1]))
-	my.names <- paste("tsr", my.seq)
+	my.seq <- seq(1,nrow(tsr.filt))
+	print(length(my.seq))
+	print(head(my.seq))
+	my.names <- paste("tsr", my.seq, sep="_")
 	tags.list <- vector("list", length(my.names))
 	rownames(tsr.out) <- my.names
 	for (i in 1:nrow(as.data.frame(tsrGR.filt))) {
