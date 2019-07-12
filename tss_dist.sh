@@ -3,7 +3,7 @@
 #PBS -N hs_tss_dist
 #PBS -k o
 #PBS -l nodes=1:ppn=16,vmem=32gb
-#PBS -l walltime=12:00:00
+#PBS -l walltime=10:00:00
 
 myDir=/N/dc2/scratch/rtraborn/tss_distributions
 
