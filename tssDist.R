@@ -32,14 +32,15 @@ tssDist <- function(tssFile, tsrFile,  minTAGs=10, write.file=TRUE, fileOut="tss
 		ks.pval <- ks.out$p.value
 		ks.stat <- ks.out$statistic
 		tsr.out[i, 12] <- var(tss.dist.sample)
-		tsr.out[i, 13] <- skewness(tss.dist.sample)
+		tsr.out[i, 13] <- skewness(tss.dist.sample, type=3)
 		tsr.out[i, 14] <- kurtosis(tss.dist.sample)
+		tsr.out[i, 15] <- coefSkew(tss.dist.sample)
 		if (ks.pval < ks.stat) {
 		   c("significant") -> sig.result
 		   }
 		else { c("not_significant") -> sig.result }
-		tsr.out[i, 15] <- as.numeric(ks.pval)
-		tsr.out[i, 16] <- sig.result
+		tsr.out[i, 16] <- as.numeric(ks.pval)
+		tsr.out[i, 17] <- sig.result
 		}
 	if (write.file==TRUE) {
 	   write.table(tsr.out, file="tssDist_out.txt", sep="\t", quote=FALSE, row.names=TRUE, col.names=TRUE)
